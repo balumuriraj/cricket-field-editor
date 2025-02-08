@@ -1,15 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { getPositionsForWidth } from "../lib/positions";
 import useStore from "../stores/globalStore";
 
 const Background = () => {
   const positions = getPositionsForWidth(100);
   const { scale } = useStore();
-  const hidePositions = true;
+  const [hidePositions, setHidePositions] = React.useState(true);
+
+  useEffect(() => {
+    if (scale >= 2) {
+      setHidePositions(false);
+    } else {
+      setHidePositions(true);
+    }
+  }, [scale]);
+
   return (
-    <div className="absolute w-[650px] h-[650px]" role="DraggableBox">
+    <div className="absolute md:w-[600px] md:h-[600px] w-[300px] h-[300px]">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <g>
           <circle cx="50" cy="50" r="50" fill="green" />
@@ -96,15 +105,17 @@ const Background = () => {
               <g
                 key={name}
                 transform={`translate(${x}, ${y}) scale(${1 / scale})`}
+                opacity={0.5}
               >
-                <circle cx={0} cy={0} r="1" fill="red" />
+                <circle cx={0} cy={0} r="1" fill="white" />
                 <text
                   x={0}
                   y={0}
                   fontSize="2"
                   fill="white"
                   textAnchor="middle"
-                  dy=".35em"
+                  dy="3px"
+                  
                 >
                   {name}
                 </text>

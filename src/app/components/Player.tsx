@@ -3,6 +3,7 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 import useStore from "../stores/globalStore";
+import Shirt from "./Shirt";
 
 interface Props {
   id: number;
@@ -40,13 +41,13 @@ const Player = ({ id, name, position, setTransformWrapperDisabled }: Props) => {
   });
 
   const { scale } = useStore();
-  const adjustedX = position.x - 16;
-  const adjustedY = position.y - 16;
+  const adjustedX = position.x;
+  const adjustedY = position.y;
 
   return (
     <div
       ref={drag}
-      className="absolute p-4 bg-blue-500 text-white rounded-full cursor-move"
+      className="absolute cursor-move"
       style={{
         position: "absolute",
         transform: `translate3d(${adjustedX}px, ${adjustedY}px, 0) scale(${
@@ -65,10 +66,13 @@ const Player = ({ id, name, position, setTransformWrapperDisabled }: Props) => {
       onTouchStart={() => setTransformWrapperDisabled(true)}
       onTouchEnd={() => setTransformWrapperDisabled(false)}
     >
-      <div className="absolute text-xs w-20 text-center transform -translate-x-1/2 -translate-y-1/2">
-        {name}
-        <div className="text-xs">
-          {position.x}, {position.y}
+      <div className="relative">
+        <Shirt size={40} />
+        <div className="absolute font-bold text-xs top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          {id}
+        </div>
+        <div className="absolute text-xs bottom-[-20px] left-1/2 transform -translate-x-1/2">
+          {name}
         </div>
       </div>
     </div>

@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 import { presets } from "../lib/presets";
 import Player from "./Player";
 import Background from "./Background";
 import useStore from "../stores/globalStore";
+import useElementSize from "../hooks/useElementSize";
 
 export interface DragItem {
   id: number;
@@ -31,6 +32,18 @@ const Editor = ({
     }))
   );
   const { scale } = useStore();
+  const [size, containerRef] = useElementSize();
+
+  useEffect(() => {
+    const updatedPlayers = presets[0].players.map((player) => ({
+      ...player,
+      position: {
+        x: (player.position.x / 100) * size.width,
+        y: (player.position.y / 100) * size.height,
+      },
+    }));
+    setPlayers(updatedPlayers);
+  }, [size]);
 
   const [, drop] = useDrop({
     accept: "PLAYER",
@@ -56,7 +69,13 @@ const Editor = ({
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <div ref={drop} className="relative w-[650px] h-[650px]">
+      <div
+        ref={(node) => {
+          drop(node);
+          containerRef.current = node;
+        }}
+        className="relative md:w-[600px] md:h-[600px] w-[300px] h-[300px]"
+      >
         <Background />
         {players.map((player) => (
           <Player
