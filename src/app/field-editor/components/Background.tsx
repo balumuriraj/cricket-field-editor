@@ -7,15 +7,15 @@ import useStore from "../stores/globalStore";
 const Background = () => {
   const positions = getPositionsForWidth(100);
   const { scale } = useStore();
-  const [hidePositions, setHidePositions] = React.useState(true);
+  const [hidePositions, setHidePositions] = React.useState(false);
 
-  useEffect(() => {
-    if (scale >= 2) {
-      setHidePositions(false);
-    } else {
-      setHidePositions(true);
-    }
-  }, [scale]);
+  // useEffect(() => {
+  //   if (scale >= 2) {
+  //     setHidePositions(false);
+  //   } else {
+  //     setHidePositions(true);
+  //   }
+  // }, [scale]);
 
   return (
     <div className="absolute md:w-[600px] md:h-[600px] w-[300px] h-[300px]">

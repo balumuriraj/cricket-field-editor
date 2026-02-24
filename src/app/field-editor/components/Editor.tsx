@@ -77,13 +77,15 @@ const Editor = ({
         className="relative md:w-[600px] md:h-[600px] w-[300px] h-[300px]"
       >
         <Background />
-        {players.map((player) => (
-          <Player
-            key={player.id}
-            {...player}
-            setTransformWrapperDisabled={setTransformWrapperDisabled}
-          />
-        ))}
+        {size.width > 0
+          ? players.map((player) => (
+              <Player
+                key={player.id}
+                {...player}
+                setTransformWrapperDisabled={setTransformWrapperDisabled}
+              />
+            ))
+          : null}
       </div>
     </div>
   );

@@ -12,25 +12,6 @@ interface Props {
   setTransformWrapperDisabled: (val: boolean) => void;
 }
 
-// function getStyles(
-//   left: number,
-//   top: number,
-//   scale: number,
-//   isDragging: boolean
-// ): CSSProperties {
-//   const transform = `translate3d(${left}px, ${top}px, 0); scale(${1 / scale})`;
-//   // console.log(transform);
-//   return {
-//     position: "absolute",
-//     transform,
-//     WebkitTransform: transform,
-//     // IE fallback: hide the real node using CSS when dragging
-//     // because IE will ignore our custom "empty image" drag preview.
-//     opacity: isDragging ? 0 : 1,
-//     height: isDragging ? 0 : "",
-//   };
-// }
-
 const Player = ({ id, name, position, setTransformWrapperDisabled }: Props) => {
   const [{ isDragging }, drag] = useDrag({
     type: "PLAYER",
@@ -67,7 +48,7 @@ const Player = ({ id, name, position, setTransformWrapperDisabled }: Props) => {
       onTouchEnd={() => setTransformWrapperDisabled(false)}
     >
       <div className="relative">
-        <Shirt size={40} />
+        <Shirt size={50} />
         <div className="absolute font-bold text-xs top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           {id}
         </div>
